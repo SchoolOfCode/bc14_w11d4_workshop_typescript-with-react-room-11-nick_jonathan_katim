@@ -1,13 +1,18 @@
 import { useState } from "react";
 
-type NewTodoProps = {
-  id: string;
-  title: string;
-  isComplete: boolean;
-  addTodo: (todo: NewTodoProps) => void;
+
+// type NewTodoProps = {
+//   id: string;
+//   title: string;
+//   isComplete: boolean;
+//   addTodo: (todo: NewTodoProps) => void;
+// };
+
+type AddTodoProps = {
+  addTodo: (addTodo: string) => void;
 };
 
-export function AddTodo(props: NewTodoProps) {
+export function AddTodo(props: AddTodoProps) {
   const { addTodo } = props;
 
   const [todoTitle, setTodoTitle] = useState("");
@@ -20,13 +25,8 @@ export function AddTodo(props: NewTodoProps) {
     if (todoTitle.trim() === "") {
       return;
     }
-    const newTodo: NewTodoProps = {
-      id: "",
-      title: todoTitle,
-      isComplete: false,
-      addTodo: props.addTodo,
-    };
-    addTodo(newTodo);
+  
+    addTodo(todoTitle);
     setTodoTitle("");
   }
 
