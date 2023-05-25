@@ -1,11 +1,18 @@
 import { useState } from "react";
 
-export function AddTodo(props) {
+type NewTodoProps = {
+  id: string;
+  title: string;
+  isComplete: boolean;
+  addTodo: (todo: NewTodoProps) => void;
+};
+
+export function AddTodo(props: NewTodoProps) {
   const { addTodo } = props;
 
   const [todoTitle, setTodoTitle] = useState("");
 
-  function onChange(e) {
+  function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setTodoTitle(e.target.value);
   }
 
@@ -13,7 +20,13 @@ export function AddTodo(props) {
     if (todoTitle.trim() === "") {
       return;
     }
-    addTodo(todoTitle);
+    const newTodo: NewTodoProps = {
+      id: "",
+      title: todoTitle,
+      isComplete: false,
+      addTodo: props.addTodo,
+    };
+    addTodo(newTodo);
     setTodoTitle("");
   }
 
